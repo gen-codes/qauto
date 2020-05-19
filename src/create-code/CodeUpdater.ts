@@ -5,6 +5,7 @@ import { CodeReconciler } from './CodeReconciler';
 import { getLineIncludes, removeLinesIncluding } from './format';
 import { PATCH_HANDLE } from './patchCode';
 import { Step } from '../types';
+import prettier from 'prettier';
 
 const debug = Debug('qawolf:CodeUpdater');
 
@@ -47,7 +48,7 @@ export abstract class CodeUpdater extends EventEmitter {
     this._locked = true;
     let code = await this._loadCode();
     code = removeLinesIncluding(code, PATCH_HANDLE);
-    await this._update(code);
+    await this._update(prettier.format(code));
   }
 
   public async update(options: UpdateOptions): Promise<void> {
