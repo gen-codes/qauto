@@ -26,13 +26,13 @@ export class ContextEventCollector extends EventEmitter {
 
   private _attribute: string;
 
-  protected constructor(context: BrowserContext) {
+  protected constructor(context) {
     super();
 
     this._attribute = loadConfig().attribute;
 
-    forEachPage(options.context, (page) =>
-      this._collectPageEvents(options.context, page as IndexedPage),
+    forEachPage(context, (page) =>
+      this._collectPageEvents(context, page as IndexedPage),
     );
   }
 
@@ -46,10 +46,11 @@ export class ContextEventCollector extends EventEmitter {
       debug(`emit %j`, event);
       this.emit('elementevent', event);
     });
-
+    const emit = this.emit.bind(this)
     const navigationListener = new NavigationListener({
       context: context as ChromiumBrowserContext,
       page,
+      emit
     });
     await navigationListener.init()
 
