@@ -55,7 +55,8 @@ export class CreateManager {
   }
 
   public async finalize(): Promise<void> {
-    const shouldSave = await createPrompt(this._codeUpdater.path());
+    const boundCreatePrompt = createPrompt.bind(this)
+    const shouldSave = await boundCreatePrompt(this._codeUpdater.path(), this.update.bind(this));
 
     if (shouldSave) {
       await this._codeUpdater.finalize();
