@@ -92,6 +92,11 @@ npx qawolf create url [name]
 | Scroll                                                       |   ✅   | `qawolf.scroll(page, 'html', { x: 0, y: 200 })`            |
 | Select                                                       |   ✅   | `page.selectOption(selectors['0_ice_cream'], 'chocolate')` |
 | Replace text                                                 |   ✅   | `page.fill(selectors['0_username'], 'username')`           |
+| Go back                                                      |   ✅   | `page.goBack()`                                            |
+| Go forward                                                   |   ✅   | `page.goForward()`                                         |
+| Go to                                                        |   ✅   | `page.goTo(url)`                                           |
+| Go to                                                        |   ✅   | `page.goTo(url)`                                           |
+| Add jest step                                                |   ✅   | `it(name, async()=>{})`                                    |
 | Paste                                                        |   ✅   | `page.type(selectors['password'], 'pasted')`               |
 | Use a test attribute                                         |   ✅   | `page.click("[data-qa='submit']")`                         |
 | Use a test attribute on an ancestor                          |   ✅   | `page.click("[data-qa='radio'] [value='cat']")`            |
