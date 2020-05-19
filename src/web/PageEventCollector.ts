@@ -64,6 +64,7 @@ export class PageEventCollector {
       target: nodeToDoc(target),
       time: Date.now(),
       value,
+      text: target.innerText
     };
 
     console.debug(
