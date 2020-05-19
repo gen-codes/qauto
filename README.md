@@ -1,3 +1,5 @@
+# qauto (qawolf fork)
+
 <p align="center"><img src="https://docs.qawolf.com/img/logo_small.png" height="80" /></p>
 
 <h1 align="center">QA Wolf</h1>
@@ -80,7 +82,7 @@ This will install `qawolf`, `jest` and `playwright` as dev dependencies and crea
 <br />
 
 ```bash
-npx qawolf create url [name]
+npx qauto create url [name]
 ```
 
 💪 Convert your actions into [Playwright](https://github.com/microsoft/playwright) code:
@@ -122,25 +124,25 @@ As your test is created:
 On Chromium:
 
 ```bash
-npx qawolf test [name]
+npx qauto test [name]
 ```
 
 On Firefox:
 
 ```bash
-npx qawolf test --firefox [name]
+npx qauto test --firefox [name]
 ```
 
 On Webkit:
 
 ```bash
-npx qawolf test --webkit [name]
+npx qauto test --webkit [name]
 ```
 
 On all browsers:
 
 ```bash
-npx qawolf test --all-browsers [name]
+npx qauto test --all-browsers [name]
 ```
 
 <br/>
