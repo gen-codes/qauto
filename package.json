@@ -1,5 +1,5 @@
 {
-  "name": "qawolf",
+  "name": "qawolf-next",
   "version": "1.0.1",
   "description": "Create browser tests 10x faster",
   "main": "./build/index.js",
@@ -88,7 +88,7 @@
     "fs-extra": "^9.0.0",
     "jest": "^25.4.0",
     "jest-mock-process": "^1.4.0",
-    "playwright": "^1.0.1",
+    "playwright": "^1.0.2",
     "playwright-webkit": "^1.0.1",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
@@ -98,6 +98,13 @@
     "typescript": "^3.9.2"
   },
   "bin": {
-    "qawolf": "./build/index.js"
-  }
+    "qawolf": "build/index.js"
+  },
+  "homepage": "https://github.com/qawolf/qawolf#readme",
+  "directories": {
+    "doc": "docs",
+    "example": "example",
+    "test": "test"
+  },
+  "author": ""
 }
