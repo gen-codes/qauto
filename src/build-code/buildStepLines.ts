@@ -33,8 +33,8 @@ export const buildValue = ({ action, value }: Step): string => {
 
 export const buildExpressionLine = (step: Step): string => {
   const { action } = step;
+  const args: string[] = [step.event.selector && buildSelector(step)];
 
-  const args: string[] = [buildSelector(step)];
 
   const value = buildValue(step);
   if (value) args.push(value);
@@ -42,6 +42,9 @@ export const buildExpressionLine = (step: Step): string => {
   let methodOpen = `page.${action}(`;
   if (action === 'scroll') {
     methodOpen = `qawolf.scroll(page, `;
+  }
+  if(action === 'step'){
+    return `});\nit('${step.event.value}', async () => {`
   }
 
   const expression = `await ${methodOpen}${args.join(', ')});`;
