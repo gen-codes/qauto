@@ -22,12 +22,12 @@ export interface Doc {
 }
 
 export interface ElementEvent {
-  isTrusted: boolean;
+  isTrusted?: boolean;
   name: ElementEventName;
-  page: number;
-  selector: string;
-  target: Doc;
-  time: number;
+  page?: number;
+  selector?: string;
+  target?: Doc;
+  time?: number;
   value: any;
 }
 
