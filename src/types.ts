@@ -4,7 +4,9 @@ export type Action =
   | 'press'
   | 'scroll'
   | 'selectOption'
-  | 'type';
+  | 'type'
+  | 'navigation'
+  | 'step';
 
 export type BrowserName = 'chromium' | 'firefox' | 'webkit';
 
@@ -26,6 +28,7 @@ export interface ElementEvent {
   selector: string;
   target: Doc;
   time: number;
+  value: any;
 }
 
 export type ElementEventName =
@@ -36,7 +39,11 @@ export type ElementEventName =
   | 'mousedown'
   | 'paste'
   | 'scroll'
-  | 'selectall';
+  | 'selectall'
+  | 'goback'
+  | 'goto'
+  | 'goforward'
+  ;
 
 export interface InputEvent extends ElementEvent {
   name: 'input';
