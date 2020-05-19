@@ -1,6 +1,6 @@
 {
   "name": "qauto",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Create browser tests 10x faster",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -58,7 +58,9 @@
     "kleur": "^3.0.3",
     "open": "^7.0.3",
     "playwright-ci": "^1.0.0",
+    "playwright-core": "^1.0.2",
     "playwright-video": "^1.0.0",
+    "prettier": "^2.0.5",
     "split": "^1.0.1",
     "tempy": "^0.5.0",
     "update-notifier": "^4.1.0"
@@ -90,7 +92,6 @@
     "jest-mock-process": "^1.4.0",
     "playwright": "^1.0.2",
     "playwright-webkit": "^1.0.1",
-    "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.10.0",
     "rollup-plugin-typescript": "^1.0.1",
