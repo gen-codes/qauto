@@ -7,17 +7,20 @@ const debug = Debug('qawolf:NavigationListener');
 type ConstructorOptions = {
   context: ChromiumBrowserContext;
   page: Page;
+  emit: Function;
 };
 
 export class NavigationListener extends EventEmitter {
   private _context: ChromiumBrowserContext;
   private _page: Page;
+  private _emit: Function;
   public constructor(
     options: ConstructorOptions,
   ) {
     super()
     this._context = options.context
     this._page = options.page
+    this._emit = options.emit
   }
 
   public async init(): Promise<void> {
@@ -47,19 +50,26 @@ export class NavigationListener extends EventEmitter {
        * size of the history will increase if so.
        */
       if (currentHistoryEntry.transitionType === "typed" && lastHistoryEntriesLength < history.entries.length) {
-        console.log({
-          kind: "goto",
-          value: frame.url()
+        this._emit('elementevent',{
+          name: "goto",
+          value: frame.url(),
+          time: Date.now()
         })
+
         // For forward and backwards determination the history will keep the same length
       } else if (lastHistoryEntriesLength === history.entries.length) {
         if (history.currentIndex < lastHistoryIndex) {
-          console.log({
-            kind: "goBack"
+          this._emit('elementevent',{
+            name: "goback",
+            value: frame.url(),
+            time: Date.now()
+
           })
         } else if (history.currentIndex > lastHistoryIndex) {
-          console.log({
-            kind: "goForward"
+          this._emit('elementevent',{
+            name: "goforward",
+            value: frame.url(),
+            time: Date.now()
           })
         }
       }

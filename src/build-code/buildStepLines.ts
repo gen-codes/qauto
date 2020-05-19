@@ -46,6 +46,17 @@ export const buildExpressionLine = (step: Step): string => {
   if(action === 'step'){
     return `});\nit('${step.event.value}', async () => {`
   }
+  if(action === 'navigation'){
+    if(step.event.name === 'goto'){
+      methodOpen = `page.goto('${step.event.value}'`
+    }
+    if(step.event.name === 'goback'){
+      methodOpen = `page.goBack(`
+    }
+    if(step.event.name === 'goforward'){
+      methodOpen = `page.goForward(`
+    }
+  }
 
   const expression = `await ${methodOpen}${args.join(', ')});`;
   return expression;

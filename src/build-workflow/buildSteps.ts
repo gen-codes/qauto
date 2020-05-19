@@ -2,6 +2,7 @@ import { concat, sortBy } from 'lodash';
 import { buildClickSteps } from './buildClickSteps';
 import { buildKeySteps } from './buildKeySteps';
 import { buildScrollSteps } from './buildScrollSteps';
+import { buildNavigationSteps } from './buildNavigationSteps';
 import { buildStepSteps } from './buildStepSteps';
 import { buildSelectOptionSteps } from './buildSelectOptionSteps';
 import { ElementEvent, Step } from '../types';
@@ -12,6 +13,7 @@ export const buildSteps = (events: ElementEvent[]): Step[] => {
     buildKeySteps(events),
     buildScrollSteps(events),
     buildSelectOptionSteps(events),
+    buildNavigationSteps(events),
     buildStepSteps(events)
   );
 
