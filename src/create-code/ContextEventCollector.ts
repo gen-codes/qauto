@@ -12,7 +12,7 @@ import {
 import { NavigationListener } from './NavigationListener'
 import { QAWolfWeb } from '../web';
 import { addScriptToContext } from '../web/addScript';
-
+import * as actions from '../actions';
 const debug = Debug('qawolf:ContextEventCollector');
 
 export class ContextEventCollector extends EventEmitter {
@@ -47,13 +47,12 @@ export class ContextEventCollector extends EventEmitter {
       this.emit('elementevent', event);
     });
     const emit = this.emit.bind(this)
-    const navigationListener = new NavigationListener({
-      context: context as ChromiumBrowserContext,
-      page,
-      emit
-    });
-    await navigationListener.init()
-
+    Object.values(actions).forEach((action)=>{
+      if(action.host){
+        action.host(page, function(e){emit('elementevent', e)}, context)
+      }
+    })
+    
     await initEvaluateScript(
       page,
       ({ attribute, pageIndex }) => {

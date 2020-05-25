@@ -1,6 +1,6 @@
 import { ScrollValue, Step } from '../types';
 import { isUndefined } from 'util';
-
+import * as actions from '../actions'
 export const didPageChange = (step: Step, previous?: Step): boolean => {
   if (!previous) return false;
 
@@ -32,7 +32,14 @@ export const buildValue = ({ action, value }: Step): string => {
 };
 
 export const buildExpressionLine = (step: Step): string => {
-  const { action } = step;
+  if(step.name){
+    console.log(step.name)
+    const action = actions[step.name]
+    if(action.generate){
+      return action.generate(step)
+    }
+  }
+  const { action, name } = step;
   const args: string[] = [step.event.selector && buildSelector(step)];
 
 
@@ -65,9 +72,9 @@ export const buildExpressionLine = (step: Step): string => {
 export const buildStepLines = (step: Step, previous?: Step): string[] => {
   const lines: string[] = [];
 
-  if (didPageChange(step, previous)) {
-    lines.push(buildPageLine(step));
-  }
+  // if (didPageChange(step, previous)) {
+  //   lines.push(buildPageLine(step));
+  // }
 
   lines.push(buildExpressionLine(step));
 

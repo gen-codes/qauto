@@ -2,7 +2,7 @@ import { buildSelector } from './selector';
 import { getClickableAncestor, isVisible } from './element';
 import { nodeToDoc } from './serialize';
 import * as types from '../types';
-
+import * as actions from '../actions'
 type EventCallback = types.Callback<types.ElementEvent>;
 
 type ConstructorOptions = {
@@ -21,10 +21,25 @@ export class PageEventCollector {
     this._attribute = options.attribute;
     this._pageIndex = options.pageIndex;
     this._sendEvent = options.sendEvent;
-    this.collectEvents();
+    // this.collectEvents();
+    this.installActionListeners();
     console.debug('PageEventCollector: created', options);
   }
-
+  private installActionListeners(): void {
+    Object.values(actions).forEach((action)=>{
+      if(action.page){
+        const uninstall = action.page((name, e)=>{
+          if(typeof name === 'string' && typeof e === 'object'){
+            this._sendEvent({name, ...e})
+          }else{
+            this._sendEvent({name: action.name, ...name})
+          }
+        })
+        this._onDispose.push(uninstall)
+      }
+    })
+    
+  }
   public dispose(): void {
     this._onDispose.forEach((d) => d());
     console.debug('PageEventCollector: disposed');

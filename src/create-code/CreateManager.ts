@@ -1,10 +1,10 @@
 import Debug from 'debug';
 import { BrowserContext } from 'playwright-core';
-import { buildSteps } from '../build-workflow/buildSteps';
 import { CodeFileUpdater } from './CodeFileUpdater';
 import { ContextEventCollector } from './ContextEventCollector';
 import { createPrompt } from './createPrompt';
 import { ElementEvent } from '../types';
+import * as actions from '../actions';
 
 type CreateCliOptions = {
   codePath: string;
@@ -48,10 +48,14 @@ export class CreateManager {
   }
 
   protected async update(event: ElementEvent): Promise<void> {
-    this._events.push(event);
-
-    const steps = buildSteps(this._events);
-    await this._codeUpdater.update({ steps });
+    const action = actions[event.name]
+    if(action && action.reduce){
+      this._events = action.reduce(this._events, event)
+    }else{
+      this._events.push(event);
+    }
+    // const steps = buildSteps(this._events);
+    await this._codeUpdater.update({ steps:this._events });
   }
 
   public async finalize(): Promise<void> {

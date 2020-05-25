@@ -1,13 +1,17 @@
 import inquirer from 'inquirer';
 import { relative } from 'path';
 import { repl } from '../utils';
-
+import * as allActions from '../actions'
 export const createPrompt = async (codePath: string, emit: Function): Promise<boolean> => {
+  const actions = Object.values(allActions).filter(action=>{
+    return !!action.prompt
+  })
+  
   const { choice } = await inquirer.prompt<{ choice: string }>([
     {
       choices: [
         '💾  Save and exit',
-        '💾  Create new step',
+        ...actions.map((action)=>action.prompt.choice),
         '🖥️  Open REPL to run code',
         '🗑️  Discard and exit',
       ],
@@ -21,15 +25,10 @@ export const createPrompt = async (codePath: string, emit: Function): Promise<bo
     await repl();
     return createPrompt(codePath,emit);
   }
-  if(choice.includes('step')){
-    const {step} = await inquirer.prompt([
-      {
-        message: `Add a step name`,
-        name: 'step',
-        type: 'string',
-      },
-    ]);
-    emit( {name: 'step', value: step, time: Date.now()})
+  const selectedAction = actions.find((action)=>action.prompt.choice === choice)
+  if(selectedAction){
+    const answer = await inquirer.prompt(selectedAction.prompt.questions)
+    emit({name: selectedAction.name, value: answer, time: Date.now()})
     return createPrompt(codePath, emit);
   }
   const shouldSave = choice.includes('Save');
