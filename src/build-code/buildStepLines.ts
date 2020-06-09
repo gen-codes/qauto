@@ -33,7 +33,6 @@ export const buildValue = ({ action, value }: Step): string => {
 
 export const buildExpressionLine = (step: Step): string => {
   if(step.name){
-    console.log(step.name)
     const action = actions[step.name]
     if(action.generate){
       return action.generate(step)

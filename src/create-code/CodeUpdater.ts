@@ -60,10 +60,10 @@ export abstract class CodeUpdater extends EventEmitter {
 
     // check the virtual code changed
     const updatedVirtualCode = buildVirtualCode(options.steps);
-    if (!this._reconciler.hasChanges(updatedVirtualCode)) {
-      debug(`skip update: no virtual changes`);
-      return;
-    }
+    // if (!this._reconciler.hasChanges(updatedVirtualCode)) {
+    //   debug(`skip update: no virtual changes`);
+    //   return;
+    // }
 
     this._locked = true;
 

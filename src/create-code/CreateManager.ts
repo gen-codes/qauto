@@ -63,6 +63,7 @@ export class CreateManager {
     const shouldSave = await boundCreatePrompt(this._codeUpdater.path(), this.update.bind(this));
 
     if (shouldSave) {
+      await this._codeUpdater.update({ steps: this._events });
       await this._codeUpdater.finalize();
     } else {
       await this._codeUpdater.discard();
