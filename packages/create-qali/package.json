@@ -1,9 +1,9 @@
 {
-  "author": "QA Wolf",
-  "name": "create-qawolf",
+  "author": "QAli",
+  "name": "create-qali",
   "license": "BSD-3-Clause",
   "version": "1.0.1",
-  "description": "🛠️ Install qawolf in your application",
+  "description": "🛠️ Install qali in your application",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
