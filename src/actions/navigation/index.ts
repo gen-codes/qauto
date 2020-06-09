@@ -40,37 +40,20 @@ export const navigation = {
             time: Date.now()
 
           })
-        } else if (history.currentIndex > lastHistoryIndex) {
-          emit({
-            name: 'navigation',
-            type: "goforward",
-            value: frame.url(),
-            time: Date.now()
-          })
         }
       }
       lastHistoryIndex = history.currentIndex
       lastHistoryEntriesLength = history.entries.length
     })  
   },
-  reduce(previousEvents, event){
-    const previousEvent = previousEvents[previousEvents.length-1]
-    if(event.type === 'goforward' && previousEvent.type === 'click'){
-      return previousEvents
-    }
-    return previousEvents.concat([event])
-  },
-  // handle 
   generate(event) {
-    if(event.type === 'goforward'){
-      return `await page.goForward()`
-    }else if(event.type === 'goback'){
-      return `await page.goBack()`
+    if(event.type === 'goback'){
+      return `
+      await delay(500)
+      await page.goBack()`
     }else if(event.type === 'goto'){
-      return `await $page.goto('${event.value}')`
+      return `await page.goto('${event.value}')`
     }
-  },
-  play: (page) => {
   },
 };
 
