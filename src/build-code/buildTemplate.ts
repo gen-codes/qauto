@@ -88,7 +88,18 @@ export const buildTemplate: TemplateFunction = ({
   useTypeScript,
 }: BuildTemplateOptions): string => {
   const code = `${buildImports({ device, useTypeScript })}
+const { configureToMatchImageSnapshot } = require('jest-image-snapshot');
 
+const customConfig = { threshold: 0.8 };
+const toMatchImageSnapshot = configureToMatchImageSnapshot({
+  customDiffConfig: customConfig,
+  noColors: true,
+  failureThreshold: 1,
+  failureThresholdType: 'percent'
+});
+expect.extend({ toMatchImageSnapshot });
+let image;
+const delay = (t=200)=>new Promise((r)=>setTimeout(()=>r(),t))
 let browser${useTypeScript ? ': Browser' : ''};
 let page${useTypeScript ? ': Page' : ''};
 
